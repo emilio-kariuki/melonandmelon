@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "705137587372",
+    "project_id": "melon-and-melon",
+    "storage_bucket": "melon-and-melon.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:705137587372:android:4b2d667da3db13c0259b09",
+        "android_client_info": {
+          "package_name": "com.ecoville.melon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "705137587372-v201aremn8t7tl0q5ruq9d4nrju9ojsv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYjGsRjkyo7xM6OtLuz_zH3twKrkfhwok"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "705137587372-v201aremn8t7tl0q5ruq9d4nrju9ojsv.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "705137587372-ovprtp6ggnm72lgihbutdr2h4phjkm1f.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ecoville.melon"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

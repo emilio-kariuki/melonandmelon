@@ -94,7 +94,7 @@ class NotificationRepository extends NotificationTemplate {
         body,
         const NotificationDetails(
             android: AndroidNotificationDetails(
-            2,
+            "2",
             'normal Notifications',
             channelDescription: 'This is the notifications normal channel',
             importance: Importance.high,

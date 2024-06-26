@@ -1,4 +1,3 @@
-
 export 'package:flutter/rendering.dart';
 export 'package:flutter/material.dart';
 export 'package:go_router/go_router.dart';
@@ -13,5 +12,11 @@ export 'package:flutter_spinkit/flutter_spinkit.dart';
 export 'package:flutter_svg/svg.dart';
 export 'package:gap/gap.dart';
 export 'package:flutter/foundation.dart';
-export './utilities.dart';
-export 'package:firebase_core/firebase_core.dart'; export 'package:firebase_messaging/firebase_messaging.dart'; export 'package:flutter_local_notifications/flutter_local_notifications.dart'; 
+export 'package:firebase_core/firebase_core.dart';
+export 'package:firebase_messaging/firebase_messaging.dart';
+export 'package:flutter_local_notifications/flutter_local_notifications.dart';
+export 'package:supabase_flutter/supabase_flutter.dart';
+export 'package:dio/dio.dart' hide Headers;
+export 'package:google_sign_in/google_sign_in.dart';
+export 'package:carousel_slider/carousel_slider.dart';
+export 'package:dots_indicator/dots_indicator.dart';

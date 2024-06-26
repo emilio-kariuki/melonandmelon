@@ -1,4 +1,4 @@
-package com.example.melonandmelon
+package com.ecoville.melon
 
 import io.flutter.embedding.android.FlutterActivity
 
