@@ -1,5 +1,6 @@
 import 'package:melonandmelon/data/repository/post_repository.dart';
 import 'package:melonandmelon/models/post_model.dart';
+import 'package:melonandmelon/models/post_request.dart';
 
 class PostProvider extends PostTemplate {
   final PostRepository _postRepository;
@@ -7,7 +8,7 @@ class PostProvider extends PostTemplate {
       : _postRepository = postRepository;
 
   @override
-  Future<bool> createPost({required PostModel post}) {
+  Future<bool> createPost({required PostRequestModel post}) {
     return _postRepository.createPost(post: post);
   }
 

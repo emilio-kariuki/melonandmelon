@@ -1,6 +1,7 @@
 import 'package:melonandmelon/data/provider/post_provider.dart';
 import 'package:melonandmelon/data/service_locator.dart';
 import 'package:melonandmelon/models/post_model.dart';
+import 'package:melonandmelon/models/post_request.dart';
 import 'package:melonandmelon/utilities/packages.dart';
 
 class PostCubit extends Cubit<PostState> {
@@ -24,9 +25,27 @@ class PostCubit extends Cubit<PostState> {
       ));
     }
   }
+
+  Future<void> createPost({required PostRequestModel post}) async {
+    try {
+      setLoading();
+      await _postService.createPost(post: post);
+      emit(state.copyWith(
+        status: PostStatus.created,
+        message: "Post created successfully",
+      ));
+    } catch (error) {
+      emit(state.copyWith(
+        status: PostStatus.error,
+        message: error.toString().toException(),
+      ));
+    }
+  }
+
+  rebuild() => emit(state.copyWith(status: PostStatus.success));
 }
 
-enum PostStatus { initial, loading, success, error }
+enum PostStatus { initial, loading, success,created, error }
 
 class PostState {
   final PostModel? post;

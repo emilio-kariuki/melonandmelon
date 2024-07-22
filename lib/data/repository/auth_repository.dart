@@ -1,6 +1,7 @@
 import 'package:melonandmelon/data/provider/user_provider.dart';
 import 'package:melonandmelon/data/repository/notification_repository.dart';
 import 'package:melonandmelon/data/service_locator.dart';
+import 'package:melonandmelon/main.dart';
 import 'package:melonandmelon/models/user_model.dart';
 import 'package:melonandmelon/utilities/packages.dart';
 
@@ -11,7 +12,7 @@ abstract class AuthTemplate {
 }
 
 class AuthRepository extends AuthTemplate {
-    static const webClientId =
+  static const webClientId =
       '705137587372-v201aremn8t7tl0q5ruq9d4nrju9ojsv.apps.googleusercontent.com';
   static const iosClientId =
       '705137587372-ovprtp6ggnm72lgihbutdr2h4phjkm1f.apps.googleusercontent.com';
@@ -29,7 +30,7 @@ class AuthRepository extends AuthTemplate {
   }
 
   @override
-  Future<bool> signInWithGoogle() async{
+  Future<bool> signInWithGoogle() async {
     try {
       final googleUser = await googleSignIn.signIn();
       final googleAuth = await googleUser!.authentication;
@@ -48,6 +49,7 @@ class AuthRepository extends AuthTemplate {
         idToken: idToken,
         accessToken: accessToken,
       );
+      logger.d(response);
       final token = await _notificationService.getNotificationToken();
       final created = await _userService.createUser(
         user: UserModel(
@@ -56,25 +58,29 @@ class AuthRepository extends AuthTemplate {
           email: response.user!.email!,
           image: response.user!.userMetadata?['avatar_url'],
           token: token,
+          username: "",
+          bio: "",
+          links: [],
+          phone: "",
         ),
       );
-      if(!created){
+      if (!created) {
         throw Exception('Failed to create user');
       }
       return true;
     } catch (e) {
-      debugPrint(e.toString());
+      logger.e(e);
       throw Exception(e.toString());
     }
   }
 
   @override
-  Future<void> signOutUser() async{
-    try{
+  Future<void> signOutUser() async {
+    try {
       await supabase.auth.signOut();
       await googleSignIn.signOut();
-    }catch(e){
-      debugPrint(e.toString());
+    } catch (e) {
+      logger.e(e);
       throw Exception(e.toString());
     }
   }

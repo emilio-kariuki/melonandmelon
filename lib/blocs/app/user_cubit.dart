@@ -1,5 +1,6 @@
 import 'package:melonandmelon/data/provider/user_provider.dart';
 import 'package:melonandmelon/data/service_locator.dart';
+import 'package:melonandmelon/main.dart';
 import 'package:melonandmelon/models/user_model.dart';
 import 'package:melonandmelon/utilities/packages.dart';
 
@@ -15,6 +16,7 @@ class UserCubit extends Cubit<UserState> {
           user: user,
           message: "User fetched successfully"));
     } catch (error) {
+      logger.e(error);
       emit(state.copyWith(
         status: UserStatus.error,
         message: error.toString().toException(),

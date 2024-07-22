@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "705137587372-nglrk6rtvv7umqaj4gncl9e9j9egcg1u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ecoville.melon",
+            "certificate_hash": "c5bf479f662c7454464dc157954dd9034250d4c8"
+          }
+        },
+        {
           "client_id": "705137587372-v201aremn8t7tl0q5ruq9d4nrju9ojsv.apps.googleusercontent.com",
           "client_type": 3
         }

@@ -20,3 +20,5 @@ export 'package:dio/dio.dart' hide Headers;
 export 'package:google_sign_in/google_sign_in.dart';
 export 'package:carousel_slider/carousel_slider.dart';
 export 'package:dots_indicator/dots_indicator.dart';
+export 'package:logger/logger.dart';
+export 'package:image_picker/image_picker.dart';

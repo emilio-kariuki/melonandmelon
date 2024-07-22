@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:melonandmelon/main.dart';
 import 'package:melonandmelon/models/comment_model.dart';
 import 'package:melonandmelon/models/comment_request.dart';
 import 'package:melonandmelon/utilities/packages.dart';
@@ -26,12 +27,12 @@ class CommentRepository extends CommentTemplate {
               "Content-Type": "application/json",
             },
           ));
-
       if (response.statusCode != 200) {
         return false;
       }
       return true;
     } catch (e) {
+      logger.e(e);
       return false;
     }
   }
@@ -51,6 +52,7 @@ class CommentRepository extends CommentTemplate {
       }
       return true;
     } catch (e) {
+      logger.e(e);
       return false;
     }
   }
@@ -63,18 +65,16 @@ class CommentRepository extends CommentTemplate {
             headers: {
               "APIKEY": API_KEY,
               "Content-Type": "application/json",
+              "user": APP_USER
             },
           ));
       if (response.statusCode != 200) {
         throw Exception('Error getting comments');
       }
-      final data = jsonDecode(response.data);
-      final List<CommentModel> comments = [];
-      for (var item in data) {
-        comments.add(CommentModel.fromJson(item));
-      }
-      return comments;
+      final data =  List<CommentModel>.from(response.data.map((x) => CommentModel.fromJson(x)));
+      return data;
     } catch (e) {
+      logger.e(e);
       throw Exception('Error getting comments');
     }
   }
@@ -100,6 +100,7 @@ class CommentRepository extends CommentTemplate {
       }
       return comments;
     } catch (e) {
+      logger.e(e);
       throw Exception('Error getting comments');
     }
   }
@@ -121,6 +122,7 @@ class CommentRepository extends CommentTemplate {
       }
       return true;
     }catch(e){
+      logger.e(e);
       return false;
     }
   }

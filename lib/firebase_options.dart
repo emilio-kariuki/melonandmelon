@@ -63,6 +63,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '705137587372',
     projectId: 'melon-and-melon',
     storageBucket: 'melon-and-melon.appspot.com',
+    androidClientId: '705137587372-nglrk6rtvv7umqaj4gncl9e9j9egcg1u.apps.googleusercontent.com',
     iosClientId: '705137587372-ovprtp6ggnm72lgihbutdr2h4phjkm1f.apps.googleusercontent.com',
     iosBundleId: 'com.ecoville.melon',
   );

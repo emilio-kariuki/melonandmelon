@@ -14,6 +14,9 @@ class AppImages {
   static const save = 'assets/icons/save.svg';
   static const search = 'assets/icons/search.svg';
   static const send = 'assets/icons/send.svg';
+  static const verified = 'assets/icons/verified.svg';
+  static const close = 'assets/icons/close.svg';
+  static const admin = 'assets/icons/admin.svg';
 
   static const defaultImage = "https://picsa.pro/profile.jpg";
 }

@@ -1,10 +1,12 @@
 import 'dart:convert';
 
+import 'package:melonandmelon/main.dart';
 import 'package:melonandmelon/models/post_model.dart';
+import 'package:melonandmelon/models/post_request.dart';
 import 'package:melonandmelon/utilities/packages.dart';
 
 abstract class PostTemplate {
-  Future<bool> createPost({required PostModel post});
+  Future<bool> createPost({required PostRequestModel post});
   Future<PostModel> getPost({required String id});
   Future<bool> updatePost({required PostModel post});
   Future<bool> deletePost({required String id});
@@ -14,13 +16,12 @@ abstract class PostTemplate {
 class PostRepository extends PostTemplate {
   final dio = Dio();
   @override
-  Future<bool> createPost({required PostModel post}) async {
+  Future<bool> createPost({required PostRequestModel post}) async {
+    logger.d(post.image);
     try {
       final data = {
-        'id': post.id,
         'content': post.content,
         'image': post.image,
-        'userId': post.userId,
       };
       final request = jsonEncode(data);
       final response = await dio.post("$API_URL/api/post/create",
@@ -29,6 +30,8 @@ class PostRepository extends PostTemplate {
             headers: {
               "APIKEY": API_KEY,
               "Content-Type": "application/json",
+              // "user": supabase.auth.currentUser!.id
+              "user": APP_USER
             },
           ));
       if (response.statusCode == 200) {
@@ -37,6 +40,7 @@ class PostRepository extends PostTemplate {
         return false;
       }
     } catch (e) {
+      logger.e(e);
       throw Exception('Error creating post');
     }
   }
@@ -49,7 +53,8 @@ class PostRepository extends PostTemplate {
             headers: {
               "APIKEY": API_KEY,
               "Content-Type": "application/json",
-              "user": supabase.auth.currentUser!.id
+              // "user": supabase.auth.currentUser!.id
+              "user": APP_USER
             },
           ));
       if (response.statusCode == 200) {
@@ -59,6 +64,7 @@ class PostRepository extends PostTemplate {
         throw Exception('Error getting post');
       }
     } catch (e) {
+      logger.e(e);
       throw Exception('Error getting post');
     }
   }
@@ -71,16 +77,18 @@ class PostRepository extends PostTemplate {
             headers: {
               "APIKEY": API_KEY,
               "Content-Type": "application/json",
-              "user": supabase.auth.currentUser!.id
+              // "user": supabase.auth.currentUser!.id
+              "user": APP_USER
             },
           ));
-      
-      if (response.statusCode == 200) {
-        return List<PostModel>.from(response.data.map((x) => PostModel.fromJson(x)));
-      } else {
+      if (response.statusCode != 200) {
         throw Exception('Error getting posts');
       }
+      final data =  List<PostModel>.from(response.data.map((x) => PostModel.fromJson(x)));
+      logger.d(data);
+      return data;
     } catch (e) {
+      logger.e(e);
       throw Exception('Error getting posts');
     }
   }
@@ -99,7 +107,8 @@ class PostRepository extends PostTemplate {
             headers: {
               "APIKEY": API_KEY,
               "Content-Type": "application/json",
-              "user": supabase.auth.currentUser!.id
+              // "user": supabase.auth.currentUser!.id
+              "user": APP_USER
             },
           ));
       if (response.statusCode == 200) {
@@ -108,6 +117,7 @@ class PostRepository extends PostTemplate {
         return false;
       }
     } catch (e) {
+      logger.e(e);
       throw Exception('Error updating post');
     }
   }
@@ -120,7 +130,8 @@ class PostRepository extends PostTemplate {
             headers: {
               "APIKEY": API_KEY,
               "Content-Type": "application/json",
-              "user": supabase.auth.currentUser!.id
+              // "user": supabase.auth.currentUser!.id
+              "user": APP_USER
             },
           ));
       if (response.statusCode == 200) {
@@ -129,6 +140,7 @@ class PostRepository extends PostTemplate {
         return false;
       }
     } catch (e) {
+      logger.e(e);
       throw Exception('Error deleting post');
     }
   }

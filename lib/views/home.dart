@@ -16,7 +16,8 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   final List<String> routes = [
     '/home',
-    '/profile',
+    '/search',
+    '/add',
   ];
 
   @override
@@ -25,7 +26,6 @@ class _HomeState extends State<Home> {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(8 * SizeConfig.heightMultiplier),
         child: AppBar(
-          
           title: Row(
             children: [
               SvgPicture.asset(
@@ -55,11 +55,11 @@ class _HomeState extends State<Home> {
               BlocBuilder<UserCubit, UserState>(
                 builder: (context, state) {
                   return GestureDetector(
-                    onTap: ()=> AuthRepository().signOutUser(),
+                    onTap: () => context.push(Routes.profile),
                     child: ImageContainer(
                       imageUrl: state.user?.image ?? AppImages.defaultImage,
-                      height: 6 * SizeConfig.heightMultiplier,
-                      width: 6 * SizeConfig.heightMultiplier,
+                      height: 5 * SizeConfig.heightMultiplier,
+                      width: 5 * SizeConfig.heightMultiplier,
                       isCirlce: true,
                     ),
                   );
@@ -86,7 +86,7 @@ class _HomeState extends State<Home> {
               children: [
                 widget.child,
                 Positioned.fill(
-                    bottom: MediaQuery.of(context).size.height * 0.04,
+                    bottom: MediaQuery.of(context).size.height * 0.02,
                     child: Align(
                       alignment: Alignment.bottomCenter,
                       child: Padding(
@@ -102,6 +102,7 @@ class _HomeState extends State<Home> {
                               style: OutlinedButton.styleFrom(
                                 padding: EdgeInsets.zero,
                                 backgroundColor: Colors.transparent,
+                                surfaceTintColor: Colors.transparent,
                                 foregroundColor: white,
                                 side: BorderSide.none,
                               ),
@@ -121,45 +122,53 @@ class _HomeState extends State<Home> {
                               ),
                             ),
                             Gap(1 * SizeConfig.widthMultiplier),
-                            OutlinedButton(
-                              onPressed: () {
+                            // OutlinedButton(
+                            //   onPressed: () {
+                            //     context
+                            //         .read<NavigationCubit>()
+                            //         .changePage(page: 1);
+                            //   },
+                            //   style: OutlinedButton.styleFrom(
+                            //     padding: EdgeInsets.zero,
+                            //     backgroundColor: Colors.transparent,
+                            //     surfaceTintColor: Colors.transparent,
+                            //     foregroundColor: white,
+                            //     side: BorderSide.none,
+                            //   ),
+                            //   child: Container(
+                            //     padding: const EdgeInsets.all(18),
+                            //     decoration: BoxDecoration(
+                            //       color:
+                            //           state.page == 1 ? darkWhite : lightDark,
+                            //       shape: BoxShape.circle,
+                            //     ),
+                            //     child: SvgPicture.asset(
+                            //       AppImages.search,
+                            //       height: 2.8 * SizeConfig.heightMultiplier,
+                            //       width: 2.8 * SizeConfig.heightMultiplier,
+                            //       color: state.page == 1 ? lightDark : white,
+                            //     ),
+                            //   ),
+                            // ),
+                            const Spacer(),
+                            GestureDetector(
+                              onTap: () {
                                 context
                                     .read<NavigationCubit>()
-                                    .changePage(page: 1);
+                                    .changePage(page: 2);
                               },
-                              style: OutlinedButton.styleFrom(
-                                padding: EdgeInsets.zero,
-                                backgroundColor: Colors.transparent,
-                                foregroundColor: white,
-                                side: BorderSide.none,
-                              ),
                               child: Container(
                                 padding: const EdgeInsets.all(18),
-                                decoration: BoxDecoration(
-                                  color:
-                                      state.page == 1 ? darkWhite : lightDark,
+                                decoration: const BoxDecoration(
+                                  color: green,
                                   shape: BoxShape.circle,
                                 ),
                                 child: SvgPicture.asset(
-                                  AppImages.search,
+                                  AppImages.add,
                                   height: 2.8 * SizeConfig.heightMultiplier,
                                   width: 2.8 * SizeConfig.heightMultiplier,
-                                  color: state.page == 1 ? lightDark : white,
+                                  color: black,
                                 ),
-                              ),
-                            ),
-                            const Spacer(),
-                            Container(
-                              padding: const EdgeInsets.all(18),
-                              decoration: const BoxDecoration(
-                                color: green,
-                                shape: BoxShape.circle,
-                              ),
-                              child: SvgPicture.asset(
-                                AppImages.add,
-                                height: 2.8 * SizeConfig.heightMultiplier,
-                                width: 2.8 * SizeConfig.heightMultiplier,
-                                color: black,
                               ),
                             )
                           ],

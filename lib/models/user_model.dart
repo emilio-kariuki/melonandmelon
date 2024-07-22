@@ -9,30 +9,39 @@ List<UserModel> userModelFromJson(String str) => List<UserModel>.from(json.decod
 String userModelToJson(List<UserModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class UserModel {
-    final String? id;
-    final String? name;
-    final String? email;
-    final String? phone;
-    final String? image;
-    final String? token;
-    final DateTime? createdAt;
-    final DateTime? updatedAt;
+    final String id;
+    final String name;
+    final String username;
+    final String email;
+    final String bio;
+    final dynamic links;
+    final String phone;
+    final String image;
+    final String token;
+    final DateTime ?createdAt;
+    final DateTime ?updatedAt;
 
     UserModel({
-        this.id,
-        this.name,
-        this.email,
-        this.phone,
-        this.image,
-        this.token,
-        this.createdAt,
-        this.updatedAt,
+        required this.id,
+        required this.name,
+        required this.username,
+        required this.email,
+        required this.bio,
+        required this.links,
+        required this.phone,
+        required this.image,
+        required this.token,
+         this.createdAt,
+         this.updatedAt,
     });
 
     UserModel copyWith({
         String? id,
         String? name,
+        String? username,
         String? email,
+        String? bio,
+        dynamic links,
         String? phone,
         String? image,
         String? token,
@@ -42,7 +51,10 @@ class UserModel {
         UserModel(
             id: id ?? this.id,
             name: name ?? this.name,
+            username: username ?? this.username,
             email: email ?? this.email,
+            bio: bio ?? this.bio,
+            links: links ?? this.links,
             phone: phone ?? this.phone,
             image: image ?? this.image,
             token: token ?? this.token,
@@ -53,22 +65,28 @@ class UserModel {
     factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
         id: json["id"],
         name: json["name"],
+        username: json["username"],
         email: json["email"],
+        bio: json["bio"],
+        links: json["links"],
         phone: json["phone"],
         image: json["image"],
         token: json["token"],
-        createdAt: json["createdAt"] == null ? null : DateTime.parse(json["createdAt"]),
-        updatedAt: json["updatedAt"] == null ? null : DateTime.parse(json["updatedAt"]),
+        createdAt: DateTime.parse(json["createdAt"]),
+        updatedAt: DateTime.parse(json["updatedAt"]),
     );
 
     Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,
+        "username": username,
         "email": email,
+        "bio": bio,
+        "links": links,
         "phone": phone,
         "image": image,
         "token": token,
-        "createdAt": createdAt?.toIso8601String(),
-        "updatedAt": updatedAt?.toIso8601String(),
+        "createdAt": createdAt!.toIso8601String(),
+        "updatedAt": updatedAt!.toIso8601String(),
     };
 }

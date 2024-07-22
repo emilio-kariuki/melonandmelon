@@ -11,22 +11,24 @@ List<CommentModel> commentModelFromJson(String str) => List<CommentModel>.from(j
 String commentModelToJson(List<CommentModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class CommentModel {
-    final String? id;
+    final String id;
     final String? content;
     final String? postId;
     final String? userId;
-    final int? likes;
+    final int likes;
+    final bool isLiked;
     final dynamic reply;
     final DateTime? createdAt;
     final DateTime? updatedAt;
     final UserModel? user;
 
     CommentModel({
-        this.id,
+        required this.id,
         this.content,
         this.postId,
         this.userId,
-        this.likes,
+        required this.likes,
+        this.isLiked = false,
         this.reply,
         this.createdAt,
         this.updatedAt,
@@ -39,6 +41,7 @@ class CommentModel {
         String? postId,
         String? userId,
         int? likes,
+        bool? isLiked,
         dynamic reply,
         DateTime? createdAt,
         DateTime? updatedAt,
@@ -50,6 +53,7 @@ class CommentModel {
             postId: postId ?? this.postId,
             userId: userId ?? this.userId,
             likes: likes ?? this.likes,
+            isLiked: isLiked ?? this.isLiked,
             reply: reply ?? this.reply,
             createdAt: createdAt ?? this.createdAt,
             updatedAt: updatedAt ?? this.updatedAt,
@@ -62,6 +66,7 @@ class CommentModel {
         postId: json["postId"],
         userId: json["userId"],
         likes: json["likes"],
+        isLiked: json["isLiked"] ?? false,
         reply: json["reply"],
         createdAt: json["createdAt"] == null ? null : DateTime.parse(json["createdAt"]),
         updatedAt: json["updatedAt"] == null ? null : DateTime.parse(json["updatedAt"]),
@@ -74,6 +79,7 @@ class CommentModel {
         "postId": postId,
         "userId": userId,
         "likes": likes,
+        "isLiked": isLiked,
         "reply": reply,
         "createdAt": createdAt?.toIso8601String(),
         "updatedAt": updatedAt?.toIso8601String(),
