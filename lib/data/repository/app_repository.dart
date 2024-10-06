@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:http_parser/http_parser.dart';
 import 'package:melonandmelon/main.dart';
 import 'package:melonandmelon/utilities/packages.dart';
+import 'package:dio/dio.dart' as diop;
 
 abstract class AppTemplate {
   Future<File> pickImage({required ImageSource source});
@@ -11,7 +12,7 @@ abstract class AppTemplate {
 }
 
 class AppRepository extends AppTemplate {
-  final dio = Dio();
+  final dio = diop.Dio();
 
   @override
   Future<File> pickImage({required ImageSource source}) async {
@@ -33,17 +34,17 @@ class AppRepository extends AppTemplate {
   Future<String> uploadImage({required File file}) async {
     logger.i("Uploading image");
     try {
-      var formData = FormData.fromMap({
-        "file": await MultipartFile.fromFile(file.path,
+      var formData = diop.FormData.fromMap({
+        "file": await diop.MultipartFile.fromFile(file.path,
             filename: file.path.split('/').last,
             contentType: MediaType('image', 'jpeg')
             ),
       },
-      ListFormat.multi
+      diop.ListFormat.multi
       );
       final response = await dio.post("$API_URL/api/upload/single",
           data: formData,
-          options: Options(
+          options: diop.Options(
             headers: {
               "APIKEY": API_KEY,
               "Content-Type": "multipart/form-data",

@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:melonandmelon/main.dart';
 import 'package:melonandmelon/utilities/packages.dart';
+import 'package:dio/dio.dart';
+
 
 abstract class LikesTemplate {
   Future<bool> likePost({required String postId});
@@ -59,7 +61,6 @@ class LikesRepository extends LikesTemplate {
               "Content-Type": "application/json",
             },
           ));
-      logger.d(response);
       if (response.statusCode == 200) {
         return true;
       } else {
@@ -90,7 +91,6 @@ class LikesRepository extends LikesTemplate {
             },
           ));
 
-      logger.d(response);
       if (response.statusCode == 200) {
         return true;
       } else {

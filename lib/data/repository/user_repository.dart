@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:melonandmelon/main.dart';
 import 'package:melonandmelon/models/user_model.dart';
 import 'package:melonandmelon/utilities/packages.dart';
@@ -22,7 +23,7 @@ class UserRepository extends UserTemplate {
         "email": user.email,
         "name": user.name,
         "image": user.image,
-        "phone": user.phone ?? "",
+        "phone": user.phone,
         "token": user.token,
       };
       final request = jsonEncode(data);
@@ -34,11 +35,10 @@ class UserRepository extends UserTemplate {
               "Content-Type": "application/json",
             },
           ));
-      if (response.statusCode == 200) {
-        return true;
-      } else {
+      if (response.statusCode != 200) {
         return false;
       }
+      return true;
     } catch (e) {
       logger.e(e);
       throw Exception('Error creating user');
@@ -52,10 +52,12 @@ class UserRepository extends UserTemplate {
         "email": user.email,
         "name": user.name,
         "image": user.image,
-        "phone": user.phone
+        "phone": user.phone,
+        "bio": user.bio,
       };
       final request = jsonEncode(data);
-      final id = supabase.auth.currentUser!.id;
+      // final id = supabase.auth.currentUser!.id;
+      const id = APP_USER;
       final response = await dio.put("$API_URL/api/user/update/$id",
           data: request,
           options: Options(
@@ -64,11 +66,10 @@ class UserRepository extends UserTemplate {
               "Content-Type": "application/json",
             },
           ));
-      if (response.statusCode == 200) {
-        return true;
-      } else {
+      if (response.statusCode != 200) {
         return false;
       }
+      return true;
     } catch (e) {
       logger.e(e);
       throw Exception('Error updating user');
@@ -79,7 +80,7 @@ class UserRepository extends UserTemplate {
   Future<UserModel> getUser() async {
     try {
       // final id = supabase.auth.currentUser!.id;
-      final id = APP_USER;
+      const id = APP_USER;
       final response = await dio.get("$API_URL/api/user/get/$id",
           options: Options(
             headers: {
@@ -87,13 +88,13 @@ class UserRepository extends UserTemplate {
               "Content-Type": "application/json",
             },
           ));
-      if (response.statusCode == 200) {
-        final user = UserModel.fromJson(response.data);
-        logger.d(user.username);
-        return user;
-      } else {
+        logger.d("user response: ${response.data}");
+      if (response.statusCode != 200) {
         throw Exception('Error getting user');
       }
+
+      final user = UserModel.fromJson(response.data);
+      return user;
     } catch (e) {
       logger.e(e);
       throw Exception('Error getting user');

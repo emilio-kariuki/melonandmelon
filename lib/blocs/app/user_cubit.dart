@@ -36,11 +36,24 @@ class UserCubit extends Cubit<UserState> {
       ));
     }
   }
+
+  Future<void> updateUser({required UserModel user }) async {
+    try {
+      await _userProvider.updateUser(user: user);
+      emit(state.copyWith(
+          status: UserStatus.updated, message: "User updated successfully"));
+    } catch (error) {
+      emit(state.copyWith(
+        status: UserStatus.error,
+        message: error.toString().toException(),
+      ));
+    }
+  }
 }
 
 //* UserState
 
-enum UserStatus { initial, loading, success, error }
+enum UserStatus { initial, loading, success, updated, error }
 
 class UserState {
   final UserModel? user;

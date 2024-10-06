@@ -1,9 +1,9 @@
 import 'package:flutter/services.dart';
 import 'package:melonandmelon/blocs/app/user_cubit.dart';
 import 'package:melonandmelon/blocs/minimal/navigation_cubit.dart';
-import 'package:melonandmelon/data/repository/auth_repository.dart';
-import 'package:melonandmelon/shared/image_containe.dart';
+import 'package:melonandmelon/shared/image_container.dart';
 import 'package:melonandmelon/utilities/packages.dart';
+
 
 class Home extends StatefulWidget {
   final Widget child;

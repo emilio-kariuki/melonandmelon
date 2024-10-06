@@ -1,7 +1,5 @@
-import 'package:flutter/services.dart';
 import 'package:melonandmelon/blocs/app/post_cubit.dart';
-import 'package:melonandmelon/blocs/app/user_cubit.dart';
-import 'package:melonandmelon/shared/image_containe.dart';
+import 'package:melonandmelon/shared/image_container.dart';
 import 'package:melonandmelon/utilities/packages.dart';
 
 class SearchPage extends StatefulWidget {
@@ -127,7 +125,7 @@ class _SearchPageState extends State<SearchPage> {
                                                 MainAxisAlignment.start,
                                             children: [
                                               Text(
-                                                postState.posts[index].user!.name ?? "",
+                                                postState.posts[index].user!.name,
                                                 style: TextStyle(
                                                   fontSize: 1.6 *
                                                       SizeConfig

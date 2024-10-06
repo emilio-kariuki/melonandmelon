@@ -4,6 +4,8 @@ import 'package:melonandmelon/data/repository/socket_repository.dart';
 import 'package:melonandmelon/data/service_locator.dart';
 import 'package:melonandmelon/utilities/packages.dart';
 import 'package:flutter/services.dart';
+import 'package:melonandmelon/views/home/components/image_section.dart';
+import 'package:provider/provider.dart';
 
 import 'firebase_options.dart';
 
@@ -12,9 +14,9 @@ final logger = Logger();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Supabase.initialize(
-    url: 'https://rqasbzdofzhwbqnhtxot.supabase.co',
+    url: 'https://yuncjcovtdfuolflkbxz.supabase.co',
     anonKey:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJxYXNiemRvZnpod2Jxbmh0eG90Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTYwMzQ3NjAsImV4cCI6MjAzMTYxMDc2MH0.yI4LQd0l7Atuhb9EDcxhTqH4zBmjZFG_WUIs91HvRJ8',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1bmNqY292dGRmdW9sZmxrYnh6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjgxNDY1OTUsImV4cCI6MjA0MzcyMjU5NX0.2VglkBD8cjKyHM2XAy25WVCZOBW2YOPfR1kwMeKYR28',
     debug: false,
   );
   await Firebase.initializeApp(
@@ -26,7 +28,12 @@ void main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-  runApp(const MainApp());
+  runApp(MultiBlocProvider(
+    providers: [
+      ChangeNotifierProvider(lazy: false, create: (context) => PageProvider()),
+    ],
+    child: const MainApp(),
+  ));
 }
 
 class MainApp extends StatelessWidget {
@@ -42,7 +49,7 @@ class MainApp extends StatelessWidget {
         ),
         BlocProvider(
           lazy: false,
-          create: (context) => PostCubit()..getPosts(),
+          create: (context) => PostCubit()..getPosts()..getUserPosts(),
         ),
       ],
       child: LayoutBuilder(builder: (context, constraints) {

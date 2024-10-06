@@ -1,3 +1,4 @@
+
 import 'package:melonandmelon/data/provider/user_provider.dart';
 import 'package:melonandmelon/data/repository/notification_repository.dart';
 import 'package:melonandmelon/data/service_locator.dart';
@@ -16,6 +17,8 @@ class AuthRepository extends AuthTemplate {
       '705137587372-v201aremn8t7tl0q5ruq9d4nrju9ojsv.apps.googleusercontent.com';
   static const iosClientId =
       '705137587372-ovprtp6ggnm72lgihbutdr2h4phjkm1f.apps.googleusercontent.com';
+
+  static const androidClientId = "705137587372-nglrk6rtvv7umqaj4gncl9e9j9egcg1u.apps.googleusercontent.com";
 
   final GoogleSignIn googleSignIn = GoogleSignIn(
     signInOption: SignInOption.standard,

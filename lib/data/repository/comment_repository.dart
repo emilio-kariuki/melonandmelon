@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:melonandmelon/main.dart';
 import 'package:melonandmelon/models/comment_model.dart';
+import 'package:dio/dio.dart';
 import 'package:melonandmelon/models/comment_request.dart';
 import 'package:melonandmelon/utilities/packages.dart';
 

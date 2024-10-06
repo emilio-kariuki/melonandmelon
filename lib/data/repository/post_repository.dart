@@ -4,6 +4,8 @@ import 'package:melonandmelon/main.dart';
 import 'package:melonandmelon/models/post_model.dart';
 import 'package:melonandmelon/models/post_request.dart';
 import 'package:melonandmelon/utilities/packages.dart';
+import 'package:dio/dio.dart';
+
 
 abstract class PostTemplate {
   Future<bool> createPost({required PostRequestModel post});
@@ -11,6 +13,7 @@ abstract class PostTemplate {
   Future<bool> updatePost({required PostModel post});
   Future<bool> deletePost({required String id});
   Future<List<PostModel>> getPosts();
+  Future<List<PostModel>> getUserPosts();
 }
 
 class PostRepository extends PostTemplate {
@@ -85,7 +88,6 @@ class PostRepository extends PostTemplate {
         throw Exception('Error getting posts');
       }
       final data =  List<PostModel>.from(response.data.map((x) => PostModel.fromJson(x)));
-      logger.d(data);
       return data;
     } catch (e) {
       logger.e(e);
@@ -142,6 +144,28 @@ class PostRepository extends PostTemplate {
     } catch (e) {
       logger.e(e);
       throw Exception('Error deleting post');
+    }
+  }
+  
+  @override
+  Future<List<PostModel>> getUserPosts() async{
+    try{
+      final userId = APP_USER;
+      final response = await dio.get("$API_URL/api/post/user/$userId",
+          options: Options(
+            headers: {
+              "APIKEY": API_KEY,
+              "Content-Type": "application/json",
+            },
+          ));
+      if(response.statusCode != 200){
+        throw Exception('Error getting user posts');
+      }
+      final data =  List<PostModel>.from(response.data.map((x) => PostModel.fromJson(x)));
+      return data;
+    }catch(e){
+      logger.e(e);
+      throw Exception('Error getting user posts');
     }
   }
 }

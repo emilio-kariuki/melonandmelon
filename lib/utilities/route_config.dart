@@ -15,7 +15,7 @@ final appRouter = GoRouter(initialLocation: '/home', routes: [
     name: Routes.welcome,
     pageBuilder: (context, state) => CustomTransitionPage<void>(
       key: state.pageKey,
-      child: WelcomePage(),
+      child: const WelcomePage(),
       transitionsBuilder: (context, animation, secondaryAnimation, child) =>
           FadeTransition(opacity: animation, child: child),
     ),
@@ -32,14 +32,14 @@ final appRouter = GoRouter(initialLocation: '/home', routes: [
     name: Routes.profile,
     pageBuilder: (context, state) => CustomTransitionPage<void>(
       key: state.pageKey,
-      child: ProfilePage(),
+      child: const ProfilePage(),
       transitionsBuilder: (context, animation, secondaryAnimation, child) =>
           FadeTransition(opacity: animation, child: child),
     ),
     redirect: (context, state) {
       final user = supabase.auth.currentUser;
       if (user != null) {
-        return '/home';
+        return '/profile';
       }
       return null;
     },
@@ -51,25 +51,25 @@ final appRouter = GoRouter(initialLocation: '/home', routes: [
       GoRoute(
         path: '/home',
         name: Routes.home,
-        pageBuilder: (context, state) => MaterialPage(child: HomePage()),
+        pageBuilder: (context, state) => const MaterialPage(child: HomePage()),
         redirect: (context, state) {
-          // final user = supabase.auth.currentUser;
-          // logger.e("user"+user.toString());
-          // if (user == null) {
-          //   return '/welcome';
-          // }
+          final user = supabase.auth.currentUser;
+          logger.e("user$user");
+          if (user == null) {
+            return '/welcome';
+          }
           return null;
         },
       ),
       GoRoute(
         path: '/search',
         name: Routes.search,
-        pageBuilder: (context, state) => MaterialPage(child: SearchPage()),
+        pageBuilder: (context, state) => const MaterialPage(child: SearchPage()),
       ),
       GoRoute(
         path: '/add',
         name: Routes.add,
-        pageBuilder: (context, state) => MaterialPage(child: AddPostPage()),
+        pageBuilder: (context, state) => const MaterialPage(child: AddPostPage()),
       ),
     ],
   ),

@@ -32,4 +32,9 @@ class PostProvider extends PostTemplate {
     return _postRepository.updatePost(post: post);
   }
   
+  @override
+  Future<List<PostModel>> getUserPosts() async{
+    return _postRepository.getUserPosts();
+  }
+  
 }

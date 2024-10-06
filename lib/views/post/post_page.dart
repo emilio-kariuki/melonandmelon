@@ -1,10 +1,9 @@
-import 'package:flutter/services.dart';
 import 'package:melonandmelon/blocs/app/app_cubit.dart';
 import 'package:melonandmelon/blocs/app/post_cubit.dart';
 import 'package:melonandmelon/blocs/app/user_cubit.dart';
 import 'package:melonandmelon/main.dart';
 import 'package:melonandmelon/models/post_request.dart';
-import 'package:melonandmelon/shared/image_containe.dart';
+import 'package:melonandmelon/shared/image_container.dart';
 import 'package:melonandmelon/shared/loading_circle.dart';
 import 'package:melonandmelon/utilities/packages.dart';
 
@@ -149,18 +148,19 @@ class _AddPostPageState extends State<AddPostPage> {
             Gap(2 * SizeConfig.heightMultiplier),
             TextFormField(
               controller: _postController,
-              style: GoogleFonts.inter(
+              style: GoogleFonts.notoSans(
                 color: lightGrey,
-                fontSize: 13,
+                fontSize: 15,
               ),
               keyboardType: TextInputType.multiline,
               maxLines: 20,
               minLines: 1,
               decoration: InputDecoration(
-                hintText: 'Just a thought...',
-                hintStyle: GoogleFonts.inter(
+                hintText: 'How\'s your space today?',
+                hintStyle: GoogleFonts.notoSans(
                   color: const Color(0xff777777),
-                  fontSize: 13,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 15,
                 ),
                 fillColor: Colors.transparent,
                 filled: true,
@@ -189,7 +189,7 @@ class _AddPostPageState extends State<AddPostPage> {
                           height: 15 * SizeConfig.heightMultiplier,
                           width: 15 * SizeConfig.heightMultiplier,
                           isCirlce: false,
-                          borderRadius: BorderRadius.circular(25),
+                          borderRadius: BorderRadius.circular(10),
                         ),
                       );
                     },

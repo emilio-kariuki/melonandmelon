@@ -29,8 +29,8 @@ class ImageContainer extends StatelessWidget {
       width: width,
       imageUrl: imageUrl,
       fit: fit,
-      fadeInDuration: const Duration(milliseconds: 100),
-      filterQuality: FilterQuality.low,
+      fadeInDuration: const Duration(microseconds: 10),
+      filterQuality: FilterQuality.high,
       errorWidget: (context, url, error) => Container(
         height: height,
         width: width,
@@ -86,10 +86,6 @@ class ImageContainer extends StatelessWidget {
                 image: DecorationImage(
                   image: imageProvider,
                   fit: fit,
-                  colorFilter: ColorFilter.mode(
-                Colors.black.withOpacity(0.5),
-                BlendMode.darken
-               ),
                   
                 ),
               ),

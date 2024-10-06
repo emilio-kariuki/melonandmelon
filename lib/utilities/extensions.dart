@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:melonandmelon/utilities/packages.dart';
 
@@ -171,23 +172,41 @@ extension ErrorToast on BuildContext {
     );
   }
 
+
   void showSuccessSnackBar({required String message}) {
     ScaffoldMessenger.of(this).showSnackBar(
       SnackBar(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(8),
         ),
-        content: Text(
-          message,
-          style: GoogleFonts.inter(
-            fontSize: 2 * SizeConfig.textMultiplier,
-            color: white,
-            fontWeight: FontWeight.w500,
-          ),
+        content: Row(
+          children: [
+            Text(
+              message,
+              style: GoogleFonts.notoSans(
+                fontSize: 1.8 * SizeConfig.textMultiplier,
+                color: const Color(0xff171717),
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            const Spacer(),
+            GestureDetector(
+              onTap: () => ScaffoldMessenger.of(
+                this,
+              ).hideCurrentSnackBar(),
+
+              child: Icon(
+                Icons.close,
+                color: black,
+                size: 2.5 * SizeConfig.heightMultiplier,
+              ),
+            ),
+          ],
         ),
-        backgroundColor: green,
+        elevation: 0,
+        backgroundColor: const Color(0xff777777),
         duration: const Duration(seconds: 4),
       ),
     );
@@ -238,6 +257,7 @@ extension ErrorToast on BuildContext {
   }
 
   void showErrorSnackBar({required String message}) {
+    HapticFeedback.lightImpact();
     ScaffoldMessenger.of(this).showSnackBar(
       SnackBar(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
@@ -245,20 +265,36 @@ extension ErrorToast on BuildContext {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
-        content: Text(
-          message,
-          style: GoogleFonts.inter(
-            fontSize: 2 * SizeConfig.textMultiplier,
-            color: white,
-            fontWeight: FontWeight.w500,
-          ),
+        content: Row(
+          children: [
+            Text(
+              message,
+              style: GoogleFonts.notoSans(
+                fontSize: 1.8 * SizeConfig.textMultiplier,
+                color: black
+                ,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            const Spacer(),
+            GestureDetector(
+              onTap: () {
+                ScaffoldMessenger.of(this).hideCurrentSnackBar();
+              },
+              child: Icon(
+                Icons.close,
+                color: white,
+                size: 2.5 * SizeConfig.heightMultiplier,
+              ),
+            ),
+          ],
         ),
-        backgroundColor: Color.fromARGB(255, 230, 82, 82),
-        duration: const Duration(seconds: 4),
+        elevation: 0,
+        backgroundColor: const Color.fromARGB(255, 230, 82, 82),
+        duration: const Duration(seconds: 2),
       ),
     );
   }
-
   void hideToast() {
     ScaffoldMessenger.of(this).hideCurrentSnackBar();
   }
