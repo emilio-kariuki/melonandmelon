@@ -32,7 +32,7 @@ final appRouter = GoRouter(initialLocation: '/home', routes: [
     name: Routes.profile,
     pageBuilder: (context, state) => CustomTransitionPage<void>(
       key: state.pageKey,
-      child: const ProfilePage(),
+      child:  ProfilePage(),
       transitionsBuilder: (context, animation, secondaryAnimation, child) =>
           FadeTransition(opacity: animation, child: child),
     ),
