@@ -11,7 +11,7 @@ abstract class SocketTemplate {
 
 // Socket socket = io('https://84.247.174.84/ecoville/');
 Socket socket = io(
-    'http://84.247.174.84:4005',
+    'http://84.247.174.84:3000',
     OptionBuilder().setTransports(['websocket']).setExtraHeaders({
       'user': APP_USER,
     }).build());
